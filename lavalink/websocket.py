@@ -116,7 +116,7 @@ class WebSocket:
             protocol = 'wss' if self._ssl else 'ws'
             try:
                 self._ws = await self._session.ws_connect('{}://{}:{}'.format(protocol, self._host, self._port),
-                                                          headers=headers, heartbeat=60)
+                                                          headers=headers, heartbeat=60, autoping=False, autoclose=False)
             except (aiohttp.ClientConnectorError, aiohttp.WSServerHandshakeError, aiohttp.ServerDisconnectedError, asyncio.exceptions.TimeoutError) as ce:
                 if isinstance(ce, aiohttp.ClientConnectorError):
                     _log.warning('[Node:%s] Invalid response received; this may indicate that '
